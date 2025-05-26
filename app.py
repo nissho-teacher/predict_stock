@@ -7,6 +7,7 @@ import sklearn.linear_model
 import sklearn.model_selection
 from PIL import Image
 import yfinance as yf
+import sys
 
 st.title("AIで株価予測アプリ")
 st.write('AIを使って、株価を予測してみましょう。')
@@ -110,8 +111,23 @@ try:
     # ボタンを押すとstock_predict()が発動
     if st.button('予測する'):
         stock_predict()
-except:
-    st.error(
-        "エラーが起きているようです。"
+# except SyntaxError:
+
+except Exception as e:
+    exception_type, exception_object, exception_traceback = sys.exc_info()
+    filename = exception_traceback.tb_frame.f_code.co_filename
+    line_no = exception_traceback.tb_lineno
+    # raise Exception(f"{filname}の{line_no}行目でエラーが発生しました。詳細：{e}")
+    st.write(
+        f"詳細: {e}"
     )
+    st.error(
+        # "エラーが起きているようです。"
+        f"エラーが起きたファイル名：{exception_traceback.tb_frame.f_code.co_filename}"
+        f"行番号：{exception_traceback.tb_lineno}"
+    )
+
+finally:
+    st.write('実行が終了しました！')
+
 st.write('Copyright © 2021 Tomoyuki Yoshikawa. All Rights Reserved.')
