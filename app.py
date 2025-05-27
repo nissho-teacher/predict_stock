@@ -111,13 +111,11 @@ try:
     # ボタンを押すとstock_predict()が発動
     if st.button('予測する'):
         stock_predict()
-# except SyntaxError:
 
 except Exception as e:
     exception_type, exception_object, exception_traceback = sys.exc_info()
     filename = exception_traceback.tb_frame.f_code.co_filename
     line_no = exception_traceback.tb_lineno
-    # raise Exception(f"{filname}の{line_no}行目でエラーが発生しました。詳細：{e}")
     st.write(
         f"詳細: {e}"
     )
